@@ -256,4 +256,5 @@ python/**/*.pyc
 /test/nbproject/private/
 
 *.idea
-*.exe
+*.exemthodi-api/.venv
+mthodi-api/.vscode
