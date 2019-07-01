@@ -257,6 +257,7 @@ python/**/*.pyc
 
 *.idea
 *.exe
+# working directories
 mthodi-api/.venv
 mthodi-api/.vscode
 mthodi-ui/node_modules
