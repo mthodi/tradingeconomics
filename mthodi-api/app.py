@@ -4,7 +4,8 @@ from flask import request, jsonify
 import datetime
 import pandas as pd
 import tradingeconomics as te 
-te.login('57ecw2ffxbs8337:15gcsbewqm3hrpd')
+# add tradingeconomic API key here
+te.login()
 
 app = flask.Flask(__name__)
 
@@ -13,12 +14,13 @@ cors = CORS(app, supports_credentials=True) # setup CORS
 
 @app.route('/', methods=['GET'])
 def index():
-    # return index data from te
+    """return market index data from te"""
     data = te.getMarketsData(marketsField='index', output_type='df')
     return jsonify(data.to_dict(orient='records'))
 
 @app.route('/index/', methods=['GET'])
 def get_index_components():
+    """returns index components given a symbol"""
     symbol = request.args.get('symbol', type=str)
     data = {}
     if symbol is not None:
@@ -27,6 +29,7 @@ def get_index_components():
 
 @app.route('/index/trend', methods=['GET'])
 def get_index_trend():
+    """get OHLC index prices  """
     symbol = request.args.get('symbol', type=str)
     today = datetime.date.today()
     last_year_today = today - datetime.timedelta(days=365)
@@ -40,6 +43,7 @@ def get_index_trend():
 
 @app.route('/index/peers', methods=['GET'])
 def get_index_peers():
+    """returns peers of an index from te"""
     symbol = request.args.get('symbol', type=str)
     data = [{}]
     if symbol is not None:
@@ -48,6 +52,7 @@ def get_index_peers():
 
 @app.route('/news/', methods=['GET'])
 def get_headlines():
+    """returns news from te"""
     country = request.args.get('country', type=str)
     if country is not None:
         data = te.getNews(country=country).dropna()
@@ -57,10 +62,12 @@ def get_headlines():
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """404 Error handler"""
     return " Error 404: The content you were looking for was not found on this server."
 
 @app.errorhandler(500)
 def server_fault(e):
-    return "Something went wrong, and it is our fault."
+    """Server Fault error handler"""
+    return "Something went wrong, and it is our fault. Try reloading the page."
 
-app.run(host='127.0.0.1')
+app.run(host='127.0.0.1') 
