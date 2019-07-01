@@ -13,7 +13,7 @@ The API is in the folder named mthodi-api. The following should be done while in
 
 Install the required modules with: 
 
-`pip install < requirements.txt`
+`pip install -r requirements.txt`
 
 Make sure you are using Python 3.6+ 
 
