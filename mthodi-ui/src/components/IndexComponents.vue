@@ -7,13 +7,9 @@
       <v-toolbar flat color="white">
         <h2>Index Components</h2>
         <v-spacer></v-spacer>
+        <!-- A search box for data in table-->
         <v-text-field  v-model="search" append-icon="search" label="Search an index component" single-line hide-details width="50%">
         </v-text-field>
-        <!-- <template v-slot:extension>
-           <v-toolbar-title>
-          Performance of index components
-        </v-toolbar-title> -->
-        <!-- </template> -->
       </v-toolbar>
         <v-data-table :headers="columns" :items="values" :search="search" class="elevation-1">
           <template v-slot:items="props">
@@ -25,18 +21,19 @@
             <td :class="[( props.item.MonthlyPercentualChange > 0 ? 'green white--text' : 'red darken-4 white--text')]">{{ props.item.MonthlyPercentualChange }}</td>
             <td :class="[( props.item.YTDPercentualChange > 0 ? 'green white--text' : 'red darken-4 white--text')]">{{ props.item.YTDPercentualChange }}</td>
           </template>
+          <!-- Slot shown when server returns no data. -->
           <template v-slot:no-data>
             <v-alert :value="true"  color="error">
               Sorry, the server did not return any data for this index.
             </v-alert>
           </template>
+          <!-- Slot shown when search returns no results -->
           <template v-slot:no-results>
             <v-alert :value="true"  color="error">
               Sorry, that stock was not found in this index.
             </v-alert>
           </template>
         </v-data-table>
-      <!-- </v-card> -->
       </v-app>
     </div>
   </div>
@@ -80,12 +77,6 @@ export default {
           // JSON responses are automatically parsed.
           this.loading = false;
           this.values = response.data;
-          // if (response.data.length > 0){
-          //   this.values = response.data
-          //   console.log(this.values)
-          // }else{
-          //   this.error = "Server returned empty response. That is all we know."
-          // }
         })
         .catch(e => {
           this.loading = false;

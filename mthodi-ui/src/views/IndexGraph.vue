@@ -3,7 +3,7 @@
     <div v-if="loading" class="loading">
       Loading graph data...
     </div>
-    <div v-if="error" class="error">
+    <div v-if="error" class="error white--text">
       Something went wrong. Try reloading the page.
     </div>
     <div v-if="series">
@@ -30,17 +30,6 @@
           chart: {
             id: "index-chart"
           },
-          // yaxis: {
-          //   tickAmount: 3,
-          //   title : {
-          //     text : 'Amount'
-          //   },
-          //   labels: {
-          //     formatter: function (value) {
-          //             return value + " mm";
-          //     }
-          //   }
-          //},
           xaxis : {
             type : 'datetime'
           },
@@ -57,11 +46,6 @@
               fontWeight : "bold"
             }
           },
-          // plotOptions: {
-          //   bar: {
-          //     horizontal: false,
-          //   },
-          // },
           dataLabels: {
             enabled: false,
             style: {
@@ -85,9 +69,11 @@
 
       };
     },
+    //fetch data when component is created
     created() {
       this.fetchData()
     },
+    //refetch data when the route changes
     watch: {
       '$route': 'fetchData'
     },
@@ -98,22 +84,24 @@
         axios.get(API_URL + "/index/trend?symbol=" + this.$route.query.symbol)
           .then(response => {
             this.loading = false;
+            //get the closing value and date
             const parsedData = response.data.map(s => {
               return {
                 x : new Date(s.date),
                 y: s.close
               };
             });
+            //create the series
             this.series = [{
               name : "Close",
               data : parsedData
             }]
-            console.log(this.series)
+            //console.log(this.series)
           })
           .catch(e => {
             this.loading = false;
             this.error = e.toString();
-            console.log("There was an error!")
+            //console.log(this.error) // uncomment for debugging
           });
       }
     },

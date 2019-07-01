@@ -3,18 +3,11 @@ import App from './App.vue'
 import router from './router'
 import Vuetify from 'vuetify'
 
-import vueNumeralFilterInstaller from 'vue-numeral-filter';
-import numeral from 'numeral';
+import 'material-design-icons/iconfont/material-icons.css'
+import 'typeface-roboto/index.css'
 
 Vue.use(require('vue-moment'));
-
-Vue.use(vueNumeralFilterInstaller, {
-  locale: 'en-gb'
-});
-Vue.use(numeral);
 Vue.use(Vuetify);
-
-
 
 Vue.config.productionTip = false
 

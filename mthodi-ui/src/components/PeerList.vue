@@ -3,7 +3,7 @@
     <div v-if="loading" class="loading">
       Loading index peers...
     </div>
-    <div v-if="error" class="error">
+    <div v-if="error" class="error white--text">
       Something went wrong. Please try reloading the page.
     </div>
     <div v-if="values">

@@ -3,7 +3,7 @@
     <div v-if="loading" class="loading">
       Loading news headlines...
     </div>
-    <div v-if="error" class="error">
+    <div v-if="error" class="error white--text">
       Something went wrong. Please try reloading the page.
     </div>
     <div v-if="values">
@@ -11,11 +11,13 @@
         <v-toolbar-title>News Headlines</v-toolbar-title>
       </v-toolbar>
       <v-data-table :headers="columns" :items="values" :expand="expand">
+        <!-- Slot for headlines -->
         <template v-slot:items="props">
           <tr @click="props.expanded = !props.expanded">
             <td> {{props.item.title}}</td>
           </tr>
         </template>
+        <!-- Slot for card expansion when headline is clicked -->
         <template v-slot:expand="props">
           <v-card color="blue-grey lighten-5" flat>
             <v-card-title>
@@ -73,7 +75,7 @@ export default {
     .catch(e => {
       this.loading = false;
       this.error = e.toString()
-      console.log(this.error);
+      //console.log(this.error);
     })
     }
   }
