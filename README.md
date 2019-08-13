@@ -34,7 +34,8 @@ The UI is contained in folder named `mthodi-ui`. You can run it by doing the fol
 working inside `mthodi-ui`
 
 ### 1. Install the required modules
-`npm install`
+`npm install` and then update by
+`npm update`
 
 ### 2. Run a development server
 Running `npm run serve` will run a development server on `http://localhost:8000`.
